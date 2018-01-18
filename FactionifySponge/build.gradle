@@ -1,0 +1,67 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sponge"
+            url = "https://repo.spongepowered.org/maven"
+        }
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
+        classpath "org.spongepowered:mixingradle:0.6-SNAPSHOT"
+    }
+}
+
+plugins {
+    id "org.spongepowered.plugin" version "0.8.1"
+    id "net.minecrell.vanillagradle.server" version "2.2-6"
+}
+
+apply plugin: "org.spongepowered.mixin"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+group = "me.ifydev"
+version = "1.0.0"
+
+dependencies {
+    compileOnly "org.spongepowered:spongeapi:7.0.0-SNAPSHOT"
+    compileOnly "org.spongepowered:mixin:0.7.6-SNAPSHOT"
+    compileOnly "org.projectlombok:lombok:1.16.18"
+}
+
+sponge {
+    plugin {
+        id = "factionify"
+        meta {
+            name = "Factionify"
+        }
+    }
+}
+
+minecraft {
+    version = "1.12.2"
+    mappings = "snapshot_20180112"
+
+    replaceIn "me/ifydev/factionify/sponge/FactionifyMain.java"
+    replace "@VERSION@", project.version
+}
+
+sourceSets {
+    main {
+        ext.refMap = "mixins.factionify.refmap.json"
+    }
+}
+
+jar {
+    manifest.attributes(
+            "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
+            "MixinConfigs": "mixins.factionify.json",
+            "FMLCorePluginContainsFMLMod": "true",
+    )
+}
