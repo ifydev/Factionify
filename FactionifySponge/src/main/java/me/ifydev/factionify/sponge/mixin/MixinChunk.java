@@ -15,6 +15,7 @@ import java.util.UUID;
 @Mixin(Chunk.class)
 public abstract class MixinChunk implements FactionifyChunk {
 
+    @Override
     public Optional<UUID> getOwner() {
         if (new Random().nextBoolean()) return Optional.empty();
         return Optional.of(UUID.randomUUID());

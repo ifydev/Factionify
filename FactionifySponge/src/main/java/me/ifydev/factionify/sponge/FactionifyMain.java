@@ -29,24 +29,6 @@ public class FactionifyMain {
     @Listener
     public void onServerPerInit(GamePreInitializationEvent e) {
         logger.info("Starting Factionify...");
-    }
-
-    @Listener
-    public void onPlayerMove(MoveEntityEvent e) {
-        if (e.getTargetEntity() instanceof Player) {
-            Player player = (Player) e.getTargetEntity();
-
-            FactionifyChunk chunk = (FactionifyChunk) player.getWorld().getChunk(player.getLocation().getChunkPosition()).orElse(null);
-            if (chunk == null) {
-                player.sendMessage(Text.of("No world"));
-                return;
-            }
-            Optional<UUID> owner = chunk.getOwner();
-            if (owner.isPresent()) {
-                player.sendMessage(Text.of(owner.get().toString()));
-                return;
-            }
-            player.sendMessage(Text.of("No one"));
-        }
+        eventManager.registerListeners(this, new PlayerMove());
     }
 }
