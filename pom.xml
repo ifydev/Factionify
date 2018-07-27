@@ -12,6 +12,7 @@
     <modules>
         <module>FactionifyAPI</module>
         <module>FactionifySponge</module>
+        <module>FactionifySpigot</module>
     </modules>
 
     <dependencies>
