@@ -7,11 +7,10 @@
     <groupId>me.ifydev.factionify</groupId>
     <artifactId>Factionify</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <modules>
         <module>FactionifyAPI</module>
-        <module>FactionifySponge</module>
         <module>FactionifySpigot</module>
     </modules>
 

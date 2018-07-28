@@ -1,4 +1,4 @@
-package me.ifydev.factionify.sponge.api;
+package me.ifydev.factionify.api.structures;
 
 import java.util.Optional;
 import java.util.UUID;

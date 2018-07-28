@@ -2,19 +2,13 @@ package me.ifydev.factionify.sponge;
 
 import com.google.inject.Inject;
 import lombok.Getter;
-import me.ifydev.factionify.sponge.api.FactionifyChunk;
+import me.ifydev.factionify.sponge.event.PlayerMove;
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
-import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.EventManager;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.entity.MoveEntityEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.text.Text;
-
-import java.util.Optional;
-import java.util.UUID;
 
 /**
  * @author Innectic

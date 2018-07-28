@@ -1,6 +1,6 @@
 package me.ifydev.factionify.sponge.event;
 
-import me.ifydev.factionify.sponge.api.FactionifyChunk;
+import me.ifydev.factionify.api.structures.FactionifyChunk;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.entity.MoveEntityEvent;

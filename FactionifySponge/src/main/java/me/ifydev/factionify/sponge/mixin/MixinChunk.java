@@ -1,6 +1,6 @@
 package me.ifydev.factionify.sponge.mixin;
 
-import me.ifydev.factionify.sponge.api.FactionifyChunk;
+import me.ifydev.factionify.api.structures.FactionifyChunk;
 import net.minecraft.world.chunk.Chunk;
 import org.spongepowered.asm.mixin.Mixin;
 
