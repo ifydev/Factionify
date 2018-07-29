@@ -17,6 +17,7 @@ import java.util.UUID;
 public class Faction {
     private UUID uuid;
     private String name;
+    private String description;
     private Map<UUID, Role> roles;
     private Map<UUID, UUID> players;
     private List<Chunk> claimedChunks;

@@ -11,8 +11,6 @@ import java.util.*;
  */
 public class FactionManager {
 
-    private Map<UUID, Faction> factions = new HashMap<>();
-
     public Optional<Faction> getFactionFromName(String name) {
         return factions.values().stream().filter(faction -> faction.getName().equalsIgnoreCase(name)).findFirst();
     }
@@ -35,8 +33,8 @@ public class FactionManager {
         Map<UUID, UUID> players = new HashMap<>();
         players.put(creator, owner.get().getUuid());
 
-        Faction faction = new Faction(uuid, name, roles, players, new ArrayList<>());
-        factions.put(uuid, faction);
+        Faction faction = new Faction(uuid, name, "", roles, players, new ArrayList<>());
+
         return Optional.of(faction);
     }
 
