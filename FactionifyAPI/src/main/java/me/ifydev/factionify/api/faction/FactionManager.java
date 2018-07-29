@@ -1,6 +1,6 @@
-package me.ifydev.factionify.api.manager;
+package me.ifydev.factionify.api.faction;
 
-import me.ifydev.factionify.api.manager.structures.Faction;
+import me.ifydev.factionify.api.faction.Faction;
 
 import java.util.*;
 

@@ -1,9 +1,11 @@
-package me.ifydev.factionify.api.manager.structures;
+package me.ifydev.factionify.api.faction;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import me.ifydev.factionify.api.structures.Chunk;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -15,6 +17,7 @@ import java.util.UUID;
 public class Faction {
     private UUID uuid;
     private String name;
-    private List<UUID> players;
+    private Map<UUID, Role> roles;
+    private Map<UUID, UUID> players;
     private List<Chunk> claimedChunks;
 }

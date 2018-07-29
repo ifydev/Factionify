@@ -1,4 +1,4 @@
-package me.ifydev.factionify.api.manager.structures;
+package me.ifydev.factionify.api.structures;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
