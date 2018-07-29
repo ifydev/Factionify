@@ -29,4 +29,7 @@ package me.ifydev.factionify.api;
  * @since 01/17/2018
  */
 public class FactionifyConstants {
+
+    public static final String DEFAULT_OWNER_NAME = "Owner";
+    public static final String DEFAULT_MEMBER_NAME = "Member";
 }

@@ -1,6 +1,7 @@
 package me.ifydev.factionify.api.faction;
 
-import me.ifydev.factionify.api.faction.Faction;
+import me.ifydev.factionify.api.FactionifyConstants;
+import me.ifydev.factionify.api.util.FactionUtil;
 
 import java.util.*;
 
@@ -20,14 +21,26 @@ public class FactionManager {
         return factions.values().stream().filter(faction -> faction.getUuid().equals(uuid)).findFirst();
     }
 
-    public void createFaction(String name, UUID creator) {
+    public Optional<Faction> createFaction(String name, UUID creator) {
         UUID uuid = UUID.randomUUID();
 
-        Faction faction = new Faction(uuid, name, Collections.singletonList(creator), Collections.emptyList());
+        Map<UUID, Role> roles = FactionUtil.getDefaultRoles(uuid);
+        Optional<Role> owner = roles.values().stream().filter(r -> r.getName().equalsIgnoreCase(FactionifyConstants.DEFAULT_OWNER_NAME)).findFirst();
+        if (!owner.isPresent()) {
+            // I have no idea how this could ever happen but we like to be safe here.
+            System.out.println("Somehow the owner role did not exist on faction creation?!");
+            return Optional.empty();
+        }
+
+        Map<UUID, UUID> players = new HashMap<>();
+        players.put(creator, owner.get().getUuid());
+
+        Faction faction = new Faction(uuid, name, roles, players, new ArrayList<>());
         factions.put(uuid, faction);
+        return Optional.of(faction);
     }
 
-    public void removeFaction(UUID uuid) {
-        factions.remove(uuid);
+    public Optional<Faction> removeFaction(UUID uuid) {
+        return Optional.ofNullable(factions.remove(uuid));
     }
 }
