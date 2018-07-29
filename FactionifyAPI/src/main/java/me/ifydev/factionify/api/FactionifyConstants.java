@@ -24,6 +24,10 @@
  */
 package me.ifydev.factionify.api;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Innectic
  * @since 01/17/2018
@@ -32,4 +36,12 @@ public class FactionifyConstants {
 
     public static final String DEFAULT_OWNER_NAME = "Owner";
     public static final String DEFAULT_MEMBER_NAME = "Member";
+    public static final String DEFAULT_DESCRIPTION = "Surely something.";
+
+    public static final String PERMISSION_ADMIN = "factionify.admin";
+
+    public static final List<String> FACTIONIFY_ERROR = new ArrayList<>(Arrays.asList(
+            "&c&lError encountered: <ERROR_TYPE>",
+            "&c&lShould this be reported?: <SHOULD_REPORT>"
+    ));
 }

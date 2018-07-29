@@ -2,6 +2,7 @@ package me.ifydev.factionify.api.database;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import me.ifydev.factionify.api.database.impl.SQLHandler;
 
 import java.util.Arrays;
 import java.util.Optional;

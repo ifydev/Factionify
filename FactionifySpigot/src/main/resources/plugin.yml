@@ -2,4 +2,8 @@ name: Factionify
 version: 1.0.0
 main: me.ifydev.factionify.spigot.FactionifyMain
 description: Factionify
-author: Innectic
+author: IfyDev
+
+commands:
+  factionify:
+    description: Do it

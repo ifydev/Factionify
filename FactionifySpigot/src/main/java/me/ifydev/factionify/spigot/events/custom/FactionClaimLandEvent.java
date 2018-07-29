@@ -2,8 +2,8 @@ package me.ifydev.factionify.spigot.events.custom;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import me.ifydev.factionify.api.manager.structures.Chunk;
 import me.ifydev.factionify.api.faction.Faction;
+import me.ifydev.factionify.api.structures.Chunk;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
