@@ -1,9 +1,0 @@
-{
-    "package": "me.ifydev.factionify.sponge.mixin",
-    "refmap": "mixins.factionify.refmap.json",
-    "compatibilityLevel": "JAVA_8",
-    "minVersion": "0.7.0",
-    "mixins": [
-        "MixinChunk"
-    ]
-}

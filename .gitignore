@@ -27,3 +27,4 @@ dependency-reduced-pom.xml
 FactionifySponge/build
 FactionifySponge/gradle*
 .gradle
+out/
