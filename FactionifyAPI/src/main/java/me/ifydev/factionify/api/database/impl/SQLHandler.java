@@ -9,6 +9,7 @@ import me.ifydev.factionify.api.faction.Faction;
 import me.ifydev.factionify.api.faction.Role;
 import me.ifydev.factionify.api.structures.Chunk;
 import me.ifydev.factionify.api.util.FactionUtil;
+import me.ifydev.factionify.api.util.Tristate;
 
 import java.sql.*;
 import java.util.*;
@@ -134,6 +135,8 @@ public class SQLHandler extends DatabaseHandler {
 
     @Override
     public Optional<Faction> createGroup(String name, UUID creator) {
+        // :NameExistsCheck
+        // TODO: some kind of a check to make sure a faction with this name doesn't exist.
         UUID uuid = UUID.randomUUID();
 
         Map<UUID, Role> roles = FactionUtil.getDefaultRoles(uuid);
@@ -164,6 +167,8 @@ public class SQLHandler extends DatabaseHandler {
             connection.get().close();
         } catch (SQLException e) {
             e.printStackTrace();
+            FactionifyAPI.getInstance().ifPresent(api -> api.getDisplayUtil().displayError(ConnectionError.DATABASE_EXCEPTION, Optional.empty()));
+            return Optional.empty();
         }
 
         return Optional.of(faction);
@@ -173,6 +178,13 @@ public class SQLHandler extends DatabaseHandler {
     public Optional<Faction> removeFaction(UUID uuid) {
         if (!getFaction(uuid).isPresent()) return Optional.empty();
         Faction faction = cachedFactions.remove(uuid);
+        // :LargeFactionOptimizations
+        // :BetterResultReturn
+        for (UUID player : faction.getPlayers().keySet()) {
+            Tristate result = this.removePlayerFromFaction(player, uuid);
+            if (result == Tristate.NONE) return Optional.empty();
+            else if (result == Tristate.FALSE) return Optional.empty();
+        }
 
         Optional<Connection> connection = getConnection();
         if (!connection.isPresent()) {
@@ -190,6 +202,7 @@ public class SQLHandler extends DatabaseHandler {
         } catch (SQLException e) {
             FactionifyAPI.getInstance().ifPresent(api -> api.getDisplayUtil().displayError(ConnectionError.DATABASE_EXCEPTION, Optional.empty()));
             e.printStackTrace();
+            return Optional.empty();
         }
 
         return Optional.of(faction);
@@ -203,6 +216,45 @@ public class SQLHandler extends DatabaseHandler {
     @Override
     public Optional<Faction> getFaction(String name) {
         return cachedFactions.values().stream().filter(faction -> faction.getName().equalsIgnoreCase(name)).findFirst();
+    }
+
+    @Override
+    public Optional<Faction> getFactionForPlayer(UUID uuid) {
+        return cachedFactions.values().stream().filter(f -> f.getPlayers().containsKey(uuid)).findFirst();
+    }
+
+    @Override
+    public Tristate removePlayerFromFaction(UUID player, UUID faction) {
+        // :LargeFactionOptimizations
+        // :BetterResultReturn
+
+        Optional<Faction> f = getFaction(faction);
+        if (!f.isPresent()) return Tristate.FALSE;
+
+        f.get().getPlayers().remove(player);
+
+        Optional<Connection> connection = getConnection();
+        if (!connection.isPresent()) {
+            FactionifyAPI.getInstance().ifPresent(api -> api.getDisplayUtil().displayError(ConnectionError.REJECTED, Optional.empty()));
+            return Tristate.NONE;
+        }
+
+        try {
+            PreparedStatement statement = connection.get().prepareStatement("DELETE FROM factionMembers WHERE uuid=? AND faction=?");
+            statement.setString(1, player.toString());
+            statement.setString(2, faction.toString());
+
+            statement.execute();
+            statement.close();
+
+            connection.get().close();
+        } catch (SQLException e) {
+            FactionifyAPI.getInstance().ifPresent(api -> api.getDisplayUtil().displayError(ConnectionError.DATABASE_EXCEPTION, Optional.empty()));
+            e.printStackTrace();
+            return Tristate.NONE;
+        }
+
+        return Tristate.TRUE;
     }
 
     @Override
@@ -232,7 +284,7 @@ public class SQLHandler extends DatabaseHandler {
             e.printStackTrace();
         }
 
-        return null;
+        return chunks;
     }
 
     @Override

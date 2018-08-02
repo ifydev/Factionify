@@ -20,6 +20,7 @@ import java.util.logging.Level;
 public class FactionifyMain extends JavaPlugin {
 
     @Getter private FactionifyAPI api;
+    @Getter private int minimumDisbandPower = 100; // :ConfigurableDisbandPower
 
     @Override
     public void onEnable() {

@@ -6,6 +6,7 @@ import me.ifydev.factionify.api.structures.Chunk;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -21,4 +22,12 @@ public class Faction {
     private Map<UUID, Role> roles;
     private Map<UUID, UUID> players;
     private List<Chunk> claimedChunks;
+
+    public Optional <Role> getRoleForPlayer(UUID uuid) {
+        return getRoleByUUID(players.get(uuid));
+    }
+
+    public Optional<Role> getRoleByUUID(UUID uuid) {
+        return Optional.ofNullable(roles.getOrDefault(uuid, null));
+    }
 }

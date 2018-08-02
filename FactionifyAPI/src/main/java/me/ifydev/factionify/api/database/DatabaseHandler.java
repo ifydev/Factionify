@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import me.ifydev.factionify.api.faction.Faction;
 import me.ifydev.factionify.api.faction.Role;
 import me.ifydev.factionify.api.structures.Chunk;
+import me.ifydev.factionify.api.util.Tristate;
 
 import java.util.*;
 
@@ -29,6 +30,8 @@ public abstract class DatabaseHandler {
 
     public abstract Optional<Faction> getFaction(UUID uuid);
     public abstract Optional<Faction> getFaction(String name);
+    public abstract Optional<Faction> getFactionForPlayer(UUID uuid);
+    public abstract Tristate removePlayerFromFaction(UUID player, UUID faction);
 
     public abstract List<Chunk> getChunksForFaction(UUID faction);
     public abstract Map<UUID, UUID> getMembersOfFaction(UUID faction);
